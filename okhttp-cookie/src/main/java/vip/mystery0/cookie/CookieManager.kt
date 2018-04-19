@@ -17,10 +17,21 @@
 
 package vip.mystery0.cookie
 
+import android.content.Context
 import android.content.SharedPreferences
 
 object CookieManager {
 	var cookiePreferences: SharedPreferences? = null
+
+	@JvmStatic
+	fun getCookiePreference(context: Context): SharedPreferences {
+		return getCookiePreference(context, preferenceName = "cookie")
+	}
+
+	@JvmStatic
+	fun getCookiePreference(context: Context, preferenceName: String): SharedPreferences {
+		return context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE)
+	}
 
 	fun putCookie(domain: String, cookie: String?) {
 		if (cookiePreferences == null) return

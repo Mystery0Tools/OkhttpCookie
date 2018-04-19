@@ -17,22 +17,14 @@
 
 package vip.mystery0.cookie
 
-import android.content.Context
+import android.content.SharedPreferences
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class SaveCookiesInterceptor : Interceptor {
-	private lateinit var context: Context
-	private lateinit var preferenceName: String
 
-	constructor(context: Context) : this(context, "cookies")
-	constructor(context: Context, preferenceName: String) {
-		this.context = context
-		this.preferenceName = preferenceName
-	}
-
-	init {
-		CookieManager.cookiePreferences = context.getSharedPreferences(preferenceName, Context.MODE_PRIVATE)
+	constructor(sharedPreferences: SharedPreferences) {
+		CookieManager.cookiePreferences = sharedPreferences
 	}
 
 	override fun intercept(chain: Interceptor.Chain): Response {
